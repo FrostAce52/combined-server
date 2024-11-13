@@ -1,0 +1,90 @@
+<style>
+  .nav-item a.nav-link.active {
+    background-color: rgb(219, 181, 30);
+    border-radius: 6px;
+    color: rgb(0, 0, 0);
+    font-weight: 900;
+  }
+</style>
+<div class="container">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='fundraiser' ? 'active' : '' %>"
+              href="/fundraiser"
+            >
+              募資
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='member' ? 'active' : '' %>"
+              href="/member"
+            >
+              會員
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='product' ? 'active' : '' %>"
+              href="/product"
+            >
+              商品
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='stream' ? 'active' : '' %>"
+              href="/stream"
+            >
+              直播
+            </a>
+          </li>
+        </ul>
+        <br />
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <% if(session.admin){ %>
+          <li class="nav-item">
+            <a class="nav-link"> <%= session.admin.nickname %> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout"> 登出 </a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='login' ? 'active' : '' %>"
+              href="/login"
+            >
+              登入
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link <%= pageName==='register' ? 'active' : '' %>"
+              href="/register"
+            >
+              註冊
+            </a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -1,0 +1,100 @@
+<%- include("parts/html-head") %> <%- include("parts/html-navbar") %>
+<style>
+  .mb-3 .form-text {
+    color: red;
+    font-weight: 900;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">登入</h5>
+          <form name="form1" onsubmit="sendData(event)">
+            <div class="mb-3">
+              <label for="email" class="form-label">帳號</label>
+              <input type="text" class="form-control" id="email" name="email" />
+              <div class="form-text"></div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">密碼</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+              />
+              <div class="form-text"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">登入</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">登入結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert">帳號或密碼錯誤</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          繼續登入
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include("parts/html-scripts") %>
+<script>
+  const modal = new bootstrap.Modal("#staticBackdrop"); //# 後方為 modal id
+
+  const sendData = async (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(document.form1);
+    try {
+      const r = await fetch("/login", {
+        method: "POST",
+        body: fd,
+      });
+      result = await r.json();
+      console.log(JSON.stringify(result, null, 4));
+
+      if (!result.success) {
+        modal.show();
+      } else {
+        const usp = new URLSearchParams(location.search);
+        if (usp.get("u")) {
+          location.href = usp.get("u"); // 跳轉參數指定的位址
+        } else {
+          location.href = "/"; // 跳轉到首頁
+        }
+      }
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+</script>
+<%- include("parts/html-tail") %>
