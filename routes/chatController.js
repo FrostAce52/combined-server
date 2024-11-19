@@ -29,7 +29,7 @@ const chatController = (io) => {
 
       const joinMessage = {
         type: "system",
-        text: `${userData.nickname} has joined the chat`,
+        text: `${userData.nickname} 已加入`,
         timestamp: new Date().toISOString(),
       };
 
@@ -93,7 +93,7 @@ const chatController = (io) => {
       if (userData) {
         const leaveMessage = {
           type: "system",
-          text: `${userData.nickname} has left the chat`,
+          text: `${userData.nickname} 已離開`,
           timestamp: new Date().toISOString(),
         };
 
